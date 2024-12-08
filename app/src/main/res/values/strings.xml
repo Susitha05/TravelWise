@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">TravelWise</string>
+    <string-array name="city_array">
+        <item>Select Your City</item> <!-- Placeholder text -->
+        <item>Colombo</item>
+        <item>Kandy</item>
+        <item>Galle</item>
+        <item>Horana</item>
+        <item>Negombo</item>
+        <item>Panadura</item>
+        <item>Hambanthota</item>
+        <item>Katharagama</item>
+        <item>Nuwara Eliya</item>
+        <item>Ratnapura</item>
+        <item>Kadawatha</item>
+        <item>Matara</item>
+        <item>Kaduwela</item>
+        <item>Kalaniya</item>
+        <item>Aluthgama</item>
+        <item>Mattala</item>
+    </string-array>
+
+    <string-array name="language_options">
+        <item>English</item>
+        <item>Sinhala</item>
+        <item>Tamil</item>
+    </string-array>
+
+    <!-- User Roles Array -->
+    <string-array name="user_type_array">
+        <item>Select User Role</item> <!-- Placeholder text -->
+        <item>Passenger</item>
+        <item>Bus Owner</item>
+        <item>Bus Driver</item>
+    </string-array>
+
+    <!-- Placeholder for spinner hints -->
+    <string name="select_city_hint">Select Your City</string>
+    <string name="select_role_hint">Select Role (ex: Passenger)</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+
+    <!-- Bus type selection -->
+    <string name="primaryColor">#FF6200EE</string>
+    <string name="white">#FFFFFF</string>
+    <string name="select_bus_type">bus type</string>
+    <string name="bus_type">Bus Type</string>
+    <string name="enter_model">Enter Model</string>
+    <string name="bus_model">Bus Model</string>
+
+    <!-- Spinner values -->
+    <string-array name="busTypeSpinner">
+        <item>Semi Sleeper</item>
+        <item>Sleeper</item>
+        <item>Air conditioned</item>
+        <item>Non-Ac</item>
+        <item>Shuttle</item>
+    </string-array>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+</resources>

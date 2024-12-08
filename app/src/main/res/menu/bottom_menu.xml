@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/nav_bookings"
+        android:icon="@drawable/seat"
+        android:title="Bookings" />
+    <item
+        android:id="@+id/nav_location"
+        android:icon="@drawable/pin"
+        android:title="Location" />
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/user__1_"
+        android:title="Account" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/logout"
+        android:title="Logout" />
+</menu>

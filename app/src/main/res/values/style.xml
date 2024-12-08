@@ -1,0 +1,11 @@
+<resources>
+    <style name="ActiveTextStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="InactiveTextStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

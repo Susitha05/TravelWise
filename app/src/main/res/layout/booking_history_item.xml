@@ -1,0 +1,122 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/booking_history_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Booking ID and Date-Time -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Booking ID : "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/booking_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="N/A"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/booking_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date-Time"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Booking Locations -->
+        <TextView
+            android:id="@+id/booking_locations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From: [Start Location] To: [End Location]"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Seats Information and Quantity -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/seats_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Seats Info"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/seat_qty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qty: 0"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Total Amount -->
+        <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Amount: LKR 0.00"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Buttons for Cancel and Swap -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/cancel_booking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel Booking"
+                android:textSize="14sp"
+                android:backgroundTint="@color/reservedSeatColor"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/swap_seats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swap Seats"
+                android:textSize="14sp"
+                android:backgroundTint="@color/primaryColor"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

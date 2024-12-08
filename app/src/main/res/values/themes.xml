@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TravelWise" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!-- Optional: Use light icons for status bar (if you have a dark background) -->
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Make sure the layout doesn't collide with status bar -->
+        <item name="android:fitsSystemWindows">true</item>
+
+        <item name="colorPrimary">#F57C00</item>
+        <!-- Primary variant -->
+        <item name="colorPrimaryVariant">#FFFFFF</item>
+        <!-- Secondary color -->
+        <item name="colorSecondary">#303F9F</item>
+    </style>
+
+    <style name="Theme.TravelWise" parent="Base.Theme.TravelWise" />
+</resources>

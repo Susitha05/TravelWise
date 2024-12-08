@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map with Directions</title>
+    <style>
+        /* Ensure that the map takes full screen */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 90%;
+            width: 100%;
+        }
+
+        #input-container {
+            background-color: #303F9F;
+            width: 100%;
+            padding-top: 10px;
+            position: absolute;
+            top: 0;
+            z-index: 10;
+            text-align: center;
+        }
+
+        #pac-input, #from, #to {
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: black; /* Adjust text color for readability */
+        }
+
+        /* Styling for the direction button */
+        #directions-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #303F9F;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            z-index: 1000;
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #directions-btn:hover {
+            background-color: #2337C6;
+        }
+
+        /* Container for the bottom section */
+        .bottom-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 20px;
+        }
+
+        #distance, #duration {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Container for the input fields with a blue background -->
+<div id="input-container">
+    <!-- Input fields for 'From' and 'To' locations -->
+    <input id="from" type="text" placeholder="Enter starting location" />
+    <input id="to" type="text" placeholder="Enter destination" />
+    <button id="directions-btn">Get Directions</button>
+</div>
+
+<!-- Display the map -->
+<div id="map"></div>
+
+<!-- Container for the bottom section -->
+<div class="bottom-container">
+    <span id="distance"><b>Estimated Distance: -</b></span>
+    <span id="duration"><b>Estimated Time: -</b></span>
+</div>
+
+<!-- Include the Google Maps API -->
+<script async defer
+        src="https://maps.gomaps.pro/maps/api/js?key=AlzaSykb5UXUlFlCzMVDZh40rE3BZon-xUBi-9I&libraries=geometry,places,directions&callback=initMap">
+</script>
+
+<script>
+    let map;
+    let autocompleteFrom;
+    let autocompleteTo;
+    let directionsService;
+    let directionsRenderer;
+    let directionsCalculated = false;  // Flag to check if directions were already calculated
+    let fromMarker, toMarker;
+
+    function initMap() {
+        // Initialize the map at a default location (Sydney in this case)
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 6.927079, lng: 79.861244 }, // Default to Colombo
+            zoom: 13
+        });
+
+        // Initialize Directions Service and Renderer
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true}); // Disable default markers
+        directionsRenderer.setMap(map);
+
+        // Set up autocomplete for "From" and "To" inputs
+        const inputFrom = document.getElementById('from');
+        const inputTo = document.getElementById('to');
+
+        autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
+        autocompleteTo = new google.maps.places.Autocomplete(inputTo);
+
+        autocompleteFrom.bindTo('bounds', map);
+        autocompleteTo.bindTo('bounds', map);
+
+        // Get the parameters from the URL and set the values in the input fields
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromLocation = urlParams.get('from');
+        const toLocation = urlParams.get('to');
+
+        if (fromLocation) {
+            document.getElementById('from').value = fromLocation;
+        }
+        if (toLocation) {
+            document.getElementById('to').value = toLocation;
+        }
+
+        // Automatically get directions if both 'from' and 'to' are provided when the page loads
+        if (fromLocation && toLocation && !directionsCalculated) {
+            calculateAndDisplayRoute();
+            directionsCalculated = true;  // Mark directions as calculated
+        }
+    }
+
+    // Function to calculate and display directions
+    function calculateAndDisplayRoute() {
+        const from = document.getElementById('from').value;
+        const to = document.getElementById('to').value;
+
+        if (!from || !to) {
+            alert('Please enter both starting and destination locations.');
+            return;
+        }
+
+        directionsService.route({
+            origin: from,
+            destination: to,
+            travelMode: google.maps.TravelMode.DRIVING,
+        }, (response, status) => {
+            if (status === 'OK') {
+                directionsRenderer.setDirections(response);
+                const distance = response.routes[0].legs[0].distance.text; // Get the distance
+                const duration = response.routes[0].legs[0].duration.text; // Get the duration
+
+                // Display the distance and duration in the bottom section
+                document.getElementById('distance').textContent = `Estimated Distance: ${distance}`;
+                document.getElementById('duration').textContent = `Estimated Time: ${duration}`;
+
+                // Remove previous markers if any
+                if (fromMarker) fromMarker.setMap(null);
+                if (toMarker) toMarker.setMap(null);
+
+                // Place a custom icon for "From" location
+                fromMarker = new google.maps.Marker({
+                    position: response.routes[0].legs[0].start_location,
+                    map: map,
+                    title: 'From Location',
+                    icon: {
+                        url: 'https://img.icons8.com/?size=100&id=2qILN4TPflQX&format=png&color=228BE6', // Custom Bus icon URL
+                        scaledSize: new google.maps.Size(40, 40), // Resize the icon
+                    },
+                });
+
+                // Place a custom "Drop off" marker for "To" location
+                toMarker = new google.maps.Marker({
+                    position: response.routes[0].legs[0].end_location,
+                    map: map,
+                    title: 'Drop off',
+                    icon: {
+                        url: 'https://img.icons8.com/?size=100&id=7xbwhtirNQFm&format=png&color=f57c00', // Custom Drop-off icon URL
+                        scaledSize: new google.maps.Size(40, 40), // Resize the icon
+                    },
+                });
+            } else {
+                alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
+    // Attach the click event to the "Get Directions" button
+    document.getElementById('directions-btn').addEventListener('click', () => {
+        directionsCalculated = false;  // Reset the directions calculation flag
+        calculateAndDisplayRoute();
+    });
+</script>
+
+</body>
+</html>
